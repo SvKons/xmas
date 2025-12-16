@@ -484,18 +484,6 @@ img {
     margin-bottom: 24px;
 }
 
-/* .glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    z-index: 1;
-    pointer-events: none;
-} */
-
 .glass-card-content {
     padding: 24px;
 }
@@ -514,8 +502,8 @@ img {
 }
 
 .horoscope-body {
-    font-size: 14px;
-    line-height: 1.8;
+    font-size: 16px;
+    line-height: 1.5;
     color: var(--text-secondary);
 }
 
@@ -610,7 +598,7 @@ img {
 }
 
 .accordion-word {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--main-gold);
 }
@@ -654,13 +642,13 @@ img {
 .btn-back {
     width: 100%;
     height: 50px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--main-gold);
+    border: 1px solid var(--main-gold);
     border-radius: 14px;
     font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-secondary);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--night-deep);
     cursor: pointer;
     transition: background 0.2s, transform 0.2s;
     -webkit-tap-highlight-color: transparent;

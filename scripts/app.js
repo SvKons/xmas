@@ -402,11 +402,10 @@ document.addEventListener('alpine:init', () =>
 
         // Аккордион
         toggleAccordion(index) {
-            const i = this.openAccordions.indexOf(index);
-            if (i > -1) {
-                this.openAccordions.splice(i, 1);
+            if (this.openAccordions.includes(index)) {
+                this.openAccordions = [];
             } else {
-                this.openAccordions.push(index);
+                this.openAccordions = [index];
             }
         },
     }))
