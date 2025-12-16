@@ -51,7 +51,12 @@
                         <img src="img/mti-new-year-logo.png" alt="Логотип МТИ" />
                     </div>
 
-                    <h1 class="main-title">Узнай свой гороскоп<br />на <span class="year">2026</span> год!</h1>
+                    <h1 class="main-title">Гороскоп - предсказание <br />на <span class="year">2026</span> год!</h1>
+
+                    <p class="main-subtitle">
+                        Выберите свой <br />
+                        знак зодиака
+                    </p>
 
                     <div class="picker-container">
                         <div class="picker-highlight"></div>
@@ -67,7 +72,7 @@
                         </div>
                     </div>
 
-                    <button class="btn-confirm" @click="confirmSelection()">Подтвердить</button>
+                    <button class="btn-confirm" @click="confirmSelection()">Читать гороскоп</button>
                 </div>
             </div>
 
@@ -83,10 +88,15 @@
                 x-transition:leave-end="screen-leave-end">
                 <div class="content">
                     <header class="result-header">
-                        <div class="logo-box">
+                        <div class="logo-box" @click="goBack()">
                             <img src="img/logo.png" alt="Лого" />
                         </div>
-                        <span class="result-title">Гороскоп</span>
+                        <div class="zodiac-content">
+                            <div class="logo-zodiac">
+                                <img :src="selectedSign?.zodiac" :alt="selectedSign?.name" />
+                            </div>
+                            <p class="sign-dates-sub" x-text="selectedSign?.dates"></p>
+                        </div>
                     </header>
 
                     <div class="sign-icon-box">
@@ -97,7 +107,6 @@
                         <span class="sign-name" x-text="selectedSign?.name"></span>:
                         <span class="sign-tagline" x-text="selectedSign?.tagline"></span>
                     </h2>
-                    <p class="sign-dates-sub" x-text="selectedSign?.dates"></p>
 
                     <div class="glass-card">
                         <div class="glass-card-content">

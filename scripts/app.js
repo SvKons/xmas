@@ -1,17 +1,17 @@
 // ===== ДАННЫЕ =====
 const zodiacSigns = [
-    {id: 'aries', name: 'Овен', nameGen: 'Овна', symbol: '♈', dates: '(21 марта — 19 апреля)', tagline: 'Режим Сигма', img: 'img/oven.png'},
-    {id: 'taurus', name: 'Телец', nameGen: 'Тельца', symbol: '♉', dates: '(20 апреля — 20 мая)', tagline: 'Главный Масик офиса', img: 'img/telec.png'},
-    {id: 'gemini', name: 'Близнецы', nameGen: 'Близнецов', symbol: '♊', dates: '(21 мая — 20 июня)', tagline: 'Повелитель Рофлов', img: 'img/bliznecy.png'},
-    {id: 'cancer', name: 'Рак', nameGen: 'Рака', symbol: '♋', dates: '(21 июня — 22 июля)', tagline: 'Грин флаг коллектива', img: 'img/rak.png'},
-    {id: 'leo', name: 'Лев', nameGen: 'Льва', symbol: '♌', dates: '(23 июля — 22 августа)', tagline: 'Main Character', img: 'img/lev.png'},
-    {id: 'virgo', name: 'Дева', nameGen: 'Девы', symbol: '♍', dates: '(23 августа — 22 сентября)', tagline: 'Пояснил за структуру', img: 'img/deva.png'},
-    {id: 'libra', name: 'Весы', nameGen: 'Весов', symbol: '♎', dates: '(23 сентября — 22 октября)', tagline: 'На чиле, на расслабоне', img: 'img/vesy.png'},
-    {id: 'scorpio', name: 'Скорпион', nameGen: 'Скорпиона', symbol: '♏', dates: '(23 октября — 21 ноября)', tagline: 'Не Тюбик, а Скала', img: 'img/scorpion.png'},
-    {id: 'sagittarius', name: 'Стрелец', nameGen: 'Стрельца', symbol: '♐', dates: '(22 ноября — 21 декабря)', tagline: 'Визионер (не Делулу)', img: 'img/strelec.png'},
-    {id: 'capricorn', name: 'Козерог', nameGen: 'Козерога', symbol: '♑', dates: '(22 декабря — 19 января)', tagline: 'Босс-левел', img: 'img/kozerog.png'},
-    {id: 'aquarius', name: 'Водолей', nameGen: 'Водолея', symbol: '♒', dates: '(20 января — 18 февраля)', tagline: 'Альтушка от мира науки', img: 'img/vodoley.png'},
-    {id: 'pisces', name: 'Рыбы', nameGen: 'Рыб', symbol: '♓', dates: '(19 февраля — 20 марта)', tagline: 'В потоке и в ресурсе', img: 'img/ryby.png'},
+    {id: 'aries', name: 'Овен', nameGen: 'Овна', symbol: '♈', dates: '(21.03 — 19.04)', tagline: 'Режим Сигма', img: 'img/oven.png', zodiac: 'img/zodiacs/oven.png'},
+    {id: 'taurus', name: 'Телец', nameGen: 'Тельца', symbol: '♉', dates: '(20.04 — 20.05)', tagline: 'Главный Масик офиса', img: 'img/telec.png', zodiac: 'img/zodiacs/telec.png'},
+    {id: 'gemini', name: 'Близнецы', nameGen: 'Близнецов', symbol: '♊', dates: '(21.05 — 20.06)', tagline: 'Повелитель Рофлов', img: 'img/bliznecy.png', zodiac: 'img/zodiacs/bliznetc.png'},
+    {id: 'cancer', name: 'Рак', nameGen: 'Рака', symbol: '♋', dates: '(21.06 — 22.07)', tagline: 'Грин флаг коллектива', img: 'img/rak.png', zodiac: 'img/zodiacs/rak.png'},
+    {id: 'leo', name: 'Лев', nameGen: 'Льва', symbol: '♌', dates: '(23.07 — 22.08)', tagline: 'Main Character', img: 'img/lev.png', zodiac: 'img/zodiacs/lev.png'},
+    {id: 'virgo', name: 'Дева', nameGen: 'Девы', symbol: '♍', dates: '(23.08 — 22.09)', tagline: 'Пояснил за структуру', img: 'img/deva.png', zodiac: 'img/zodiacs/deva.png'},
+    {id: 'libra', name: 'Весы', nameGen: 'Весов', symbol: '♎', dates: '(23.09 — 22.10)', tagline: 'На чиле, на расслабоне', img: 'img/vesy.png', zodiac: 'img/zodiacs/vesy.png'},
+    {id: 'scorpio', name: 'Скорпион', nameGen: 'Скорпиона', symbol: '♏', dates: '(23.10 — 21.11)', tagline: 'Не Тюбик, а Скала', img: 'img/scorpion.png', zodiac: 'img/zodiacs/scorp.png'},
+    {id: 'sagittarius', name: 'Стрелец', nameGen: 'Стрельца', symbol: '♐', dates: '(22.11 — 21.12)', tagline: 'Визионер (не Делулу)', img: 'img/strelec.png', zodiac: 'img/zodiacs/streletc.png'},
+    {id: 'capricorn', name: 'Козерог', nameGen: 'Козерога', symbol: '♑', dates: '(22.12 — 19.01)', tagline: 'Босс-левел', img: 'img/kozerog.png', zodiac: 'img/zodiacs/kozerog.png'},
+    {id: 'aquarius', name: 'Водолей', nameGen: 'Водолея', symbol: '♒', dates: '(20.01 — 18.02)', tagline: 'Альтушка от мира науки', img: 'img/vodoley.png', zodiac: 'img/zodiacs/vodoley.png'},
+    {id: 'pisces', name: 'Рыбы', nameGen: 'Рыб', symbol: '♓', dates: '(19.02 — 20.03)', tagline: 'В потоке и в ресурсе', img: 'img/ryby.png', zodiac: 'img/zodiacs/ruby.png'},
 ];
 
 const horoscopes = {
