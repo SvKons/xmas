@@ -5,73 +5,137 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>Гороскоп 2026 — Рождественское издание</title>
         <link rel="stylesheet" href="styles.css" />
+
+        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="scripts/app.js"></script>
     </head>
     <body>
-        <div class="bg-layer">
-            <div class="stars"></div>
-
-            <div class="snowfall" id="snowfall"></div>
-        </div>
-
-        <div class="garlands">
-            <div class="garland garland-left">
-                <div class="garland-light light-red"></div>
-                <div class="garland-light light-green"></div>
-                <div class="garland-light light-blue"></div>
-                <div class="garland-light light-yellow"></div>
-                <div class="garland-light light-pink"></div>
-                <div class="garland-light light-red"></div>
-                <div class="garland-light light-green"></div>
-                <div class="garland-light light-blue"></div>
-                <div class="garland-light light-yellow"></div>
-                <div class="garland-light light-pink"></div>
-                <div class="garland-light light-red"></div>
-                <div class="garland-light light-green"></div>
-                <div class="garland-light light-blue"></div>
-                <div class="garland-light light-yellow"></div>
-                <div class="garland-light light-pink"></div>
-                <div class="garland-light light-red"></div>
-                <div class="garland-light light-green"></div>
-            </div>
-            <div class="garland garland-right">
-                <div class="garland-light light-yellow"></div>
-                <div class="garland-light light-pink"></div>
-                <div class="garland-light light-red"></div>
-                <div class="garland-light light-green"></div>
-                <div class="garland-light light-blue"></div>
-                <div class="garland-light light-yellow"></div>
-                <div class="garland-light light-pink"></div>
-                <div class="garland-light light-red"></div>
-                <div class="garland-light light-green"></div>
-                <div class="garland-light light-blue"></div>
-                <div class="garland-light light-yellow"></div>
-                <div class="garland-light light-pink"></div>
-                <div class="garland-light light-red"></div>
-                <div class="garland-light light-green"></div>
-                <div class="garland-light light-blue"></div>
-                <div class="garland-light light-yellow"></div>
-                <div class="garland-light light-pink"></div>
-            </div>
-        </div>
-
-        <div class="screen screen-1">
-            <div class="content">
-                <div class="main-logo">
-                    <img src="img/mti-new-year-logo.png" alt="Логотип МТИ" />
+        <div x-data="horoscopeApp()" x-init="init()" @keydown.escape="showResult = false">
+            <!-- Фоновый слой -->
+            <div class="bg-layer">
+                <div class="stars"></div>
+                <div class="snowfall">
+                    <template x-for="flake in snowflakes" :key="flake.id">
+                        <div class="snowflake" :style="flake.style"></div>
+                    </template>
                 </div>
-                <h1 class="main-title">Узнай свой гороскоп<br />на <span class="year">2026</span> год!</h1>
+            </div>
 
-                <div class="picker-container">
-                    <div class="picker-highlight"></div>
-                    <div class="picker-wrapper">
-                        <div class="picker-track" id="pickerTrack"></div>
+            <!-- Гирлянды -->
+            <div class="garlands">
+                <div class="garland garland-left">
+                    <template x-for="(color, i) in garlandColors" :key="'left-'+i">
+                        <div class="garland-light" :class="'light-' + color"></div>
+                    </template>
+                </div>
+                <div class="garland garland-right">
+                    <template x-for="(color, i) in [...garlandColors].reverse()" :key="'right-'+i">
+                        <div class="garland-light" :class="'light-' + color"></div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Экран выбора знака -->
+            <div
+                class="screen screen-select"
+                x-show="!showResult"
+                x-transition:enter="screen-enter"
+                x-transition:enter-start="screen-enter-start"
+                x-transition:enter-end="screen-enter-end"
+                x-transition:leave="screen-leave"
+                x-transition:leave-start="screen-leave-start"
+                x-transition:leave-end="screen-leave-end">
+                <div class="content content-center">
+                    <div class="main-logo">
+                        <img src="img/mti-new-year-logo.png" alt="Логотип МТИ" />
                     </div>
-                </div>
 
-                <button class="btn-confirm" id="btnConfirm">Подтвердить</button>
+                    <h1 class="main-title">Узнай свой гороскоп<br />на <span class="year">2026</span> год!</h1>
+
+                    <div class="picker-container">
+                        <div class="picker-highlight"></div>
+                        <div class="picker-wrapper" @touchstart="onPickerStart($event)" @touchmove.prevent="onPickerMove($event)" @touchend="onPickerEnd($event)" @mousedown="onPickerStart($event)" @wheel.prevent="onPickerWheel($event)">
+                            <div class="picker-track" :style="{ transform: `translateY(${pickerOffset}px)`, transition: pickerTransition }">
+                                <template x-for="(sign, index) in zodiacSigns" :key="sign.id">
+                                    <div class="picker-item" :class="{ 'active': index === currentIndex }" @click="selectSign(index)">
+                                        <span class="zodiac-symbol" x-text="sign.symbol"></span>
+                                        <span x-text="sign.name"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-confirm" @click="confirmSelection()">Подтвердить</button>
+                </div>
+            </div>
+
+            <!-- Экран результата -->
+            <div
+                class="screen screen-result"
+                x-show="showResult"
+                x-transition:enter="screen-enter"
+                x-transition:enter-start="screen-enter-start"
+                x-transition:enter-end="screen-enter-end"
+                x-transition:leave="screen-leave"
+                x-transition:leave-start="screen-leave-start"
+                x-transition:leave-end="screen-leave-end">
+                <div class="content">
+                    <header class="result-header">
+                        <div class="logo-box">
+                            <img src="img/logo.png" alt="Лого" />
+                        </div>
+                        <span class="result-title">Гороскоп</span>
+                    </header>
+
+                    <div class="sign-icon-box">
+                        <img :src="selectedSign?.img" :alt="selectedSign?.name" />
+                    </div>
+
+                    <h2 class="result-headline">
+                        <span class="sign-name" x-text="selectedSign?.name"></span>:
+                        <span class="sign-tagline" x-text="selectedSign?.tagline"></span>
+                    </h2>
+                    <p class="sign-dates-sub" x-text="selectedSign?.dates"></p>
+
+                    <div class="glass-card">
+                        <div class="glass-card-content">
+                            <div class="horoscope-body" x-html="getHoroscope()"></div>
+                            <ul class="horoscope-details">
+                                <template x-for="detail in getDetails()" :key="detail.label">
+                                    <li>
+                                        <span class="horoscope-details-title" x-text="detail.label + ':'"></span>
+                                        <span x-html="detail.text"></span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="advice-block">
+                        <p><strong>Главный совет:</strong> <span x-text="getAdvice()"></span></p>
+                    </div>
+
+                    <h2 class="result-headline-faq">Словарик для <span x-text="selectedSign?.nameGen"></span></h2>
+
+                    <div class="dictionary-list">
+                        <template x-for="(item, index) in getDictionary()" :key="index">
+                            <div class="accordion-item">
+                                <button class="accordion-trigger" @click="toggleAccordion(index)" :class="{ 'is-open': openAccordions.includes(index) }">
+                                    <span class="accordion-word" x-text="item.word"></span>
+                                    <span class="accordion-icon" :class="{ 'rotated': openAccordions.includes(index) }">+</span>
+                                </button>
+                                <div class="accordion-content" x-show="openAccordions.includes(index)" x-collapse>
+                                    <p class="accordion-text" x-text="item.translation"></p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <button class="btn-back" @click="goBack()">← Выбрать другой знак</button>
+                </div>
             </div>
         </div>
-
-        <script type="module" src="scripts/app.js"></script>
     </body>
 </html>
