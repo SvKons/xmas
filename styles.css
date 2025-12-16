@@ -32,18 +32,38 @@
 html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
+    /* Исправление для мобильных устройств */
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    height: 100%;
 }
 
 html,
 body {
     height: 100%;
     overflow: hidden;
+    /* Исправление для мобильных устройств */
+    position: relative;
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
     background: var(--night-deep);
     color: var(--text-primary);
+    /* Исправление для мобильных устройств */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Основной контейнер приложения */
+body > div[x-data] {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 img {
@@ -80,9 +100,26 @@ img {
 /* === Фон === */
 .bg-layer {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(180deg, #0a1628 0%, #0d1f3c 30%, #132744 60%, #1a3a5c 100%);
     z-index: 0;
+    /* Исправление замирания на мобильных устройствах */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Обеспечиваем покрытие всего контента */
+    min-height: 100vh;
+    min-height: 100%;
+    /* Предотвращение замирания на iOS */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
 }
 
 .stars {
@@ -141,6 +178,12 @@ img {
     inset: 0;
     pointer-events: none;
     z-index: 20;
+    /* Исправление замирания на мобильных устройствах */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .garland {
@@ -262,6 +305,12 @@ img {
     position: fixed;
     inset: 0;
     z-index: 10;
+    /* Исправление замирания на мобильных устройствах */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .screen-result {
@@ -488,7 +537,7 @@ img {
 }
 
 .glass-card-content {
-    /* max-height: 400px; */
+    max-height: 400px;
     padding: 24px;
     overflow-y: auto;
 }
@@ -678,7 +727,7 @@ img {
         height: 50px;
     }
     .glass-card-content {
-        /* max-height: 300px; */
+        max-height: 300px;
     }
 }
 
