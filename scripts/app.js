@@ -250,7 +250,7 @@ document.addEventListener('alpine:init', () =>
                 const delay = -(Math.random() * duration);
 
                 this.snowflakes.push({
-                    id: i,
+                    id: i + 1,
                     style: `
                         width: ${size}px;
                         height: ${size}px;
@@ -312,6 +312,15 @@ document.addEventListener('alpine:init', () =>
             }
 
             this.pickerOffset = newOffset - this.itemHeight / 2;
+
+            // Обновление активного индекса в реальном времени
+            let newIndex = Math.round(-newOffset / this.itemHeight);
+            newIndex = Math.max(0, Math.min(newIndex, this.zodiacSigns.length - 1));
+
+            if (newIndex !== this.currentIndex) {
+                this.currentIndex = newIndex;
+                this.selectedSign = this.zodiacSigns[newIndex];
+            }
         },
 
         // Пикер: конец драга
