@@ -488,7 +488,7 @@ img {
 }
 
 .glass-card-content {
-    max-height: 400px;
+    /* max-height: 400px; */
     padding: 24px;
     overflow-y: auto;
 }
@@ -678,7 +678,7 @@ img {
         height: 50px;
     }
     .glass-card-content {
-        max-height: 300px;
+        /* max-height: 300px; */
     }
 }
 
