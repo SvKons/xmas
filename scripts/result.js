@@ -50,7 +50,7 @@ function initResult() {
         sign = zodiacSigns[0];
     }
 
-    signIcon.src = `/${sign.img}`;
+    signIcon.src = `${sign.img}`;
     signIcon.alt = sign.name;
     signNameElements.forEach(el => (el.textContent = sign.name));
     signTaglineElements.forEach(el => (el.textContent = sign.tagline));
