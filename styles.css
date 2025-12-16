@@ -80,11 +80,9 @@ img {
 /* === Фон === */
 .bg-layer {
     position: fixed;
+    inset: 0;
     background: linear-gradient(180deg, #0a1628 0%, #0d1f3c 30%, #132744 60%, #1a3a5c 100%);
     z-index: 0;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
 }
 
 .stars {
@@ -269,7 +267,6 @@ img {
 .screen-result {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    transform: translateZ(0);
 }
 
 .content {
